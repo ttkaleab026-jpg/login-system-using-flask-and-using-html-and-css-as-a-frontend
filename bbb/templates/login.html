@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+
+    <style>
+        .flash-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 380px;
+    z-index: 9999;
+}
+
+.flash {
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    animation: slideDown 0.4s ease;
+}
+
+.flash.success { background: #28a745; } /* green */
+.flash.error   { background: #f44336; } /* red */
+
+@keyframes slideDown {
+    from { transform: translate(-50%, -50px); opacity: 0; }
+    to   { transform: translate(-50%, 0); opacity: 1; }
+}
+
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .auth-container {
+            background: white;
+            width: 380px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: 0.3s ease;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 5px rgba(0,102,255,0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #0066ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 5px;
+        }
+
+        .btn:hover {
+            background: #004ecc;
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .switch-text a {
+            color: #0066ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .switch-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<!-- Flash messages -->
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div class="flash-container">
+            {% for category, msg in messages %}
+                <p class="flash {{ category }}">{{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+
+    <div class="auth-container">
+        <form action="/login" method="post">
+         <h2>Login</h2>
+
+         <div class="input-group">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter Usename" required>
+         </div>
+
+         <div class="input-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <button class="btn">Login</button>
+       </form>
+
+        <div class="switch-text">
+            Don’t have an account? <a href="/signup">Sign Up</a>
+        </div>
+
+    </div>
+
+
+</body>
+</html>
